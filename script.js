@@ -6,6 +6,7 @@ let BFallingGently = false;
 let rotation = 0;
 const gravity = 1;
 const groundY = 667;
+const PIPE_GAP = 110;
 let pipeScored = [false, false, false, false];
 
 let bestScore = parseInt(localStorage.getItem("bestScore"), 10) || 0;
@@ -102,9 +103,8 @@ function start() {
 
     if (topX < -60) {
       topX = 1525;
-      const gap = 110;
       const topHeight = Math.floor(Math.random() * 150) + 80;
-      const bottomY = gap + topHeight + 245;
+      const bottomY = PIPE_GAP + topHeight + 245;
       top.setAttribute("y", 245);
       top.setAttribute("height", topHeight);
       bottom.setAttribute("y", bottomY);
