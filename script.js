@@ -1,4 +1,4 @@
-gaplet score = 0;
+let score = 0;
 let targetY = 0;
 let velocity = 0;
 let BDead = false;
@@ -102,7 +102,7 @@ function start() {
 
     if (topX < -60) {
       topX = 1525;
-      const gap = 250;
+      const gap = 120;
       const topHeight = Math.floor(Math.random() * 150) + 80;
       const bottomY = gap + topHeight + 245;
       top.setAttribute("y", 245);
