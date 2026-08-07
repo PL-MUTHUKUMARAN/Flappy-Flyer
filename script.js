@@ -105,10 +105,10 @@ function start() {
       const gap = 110;
       const topHeight = Math.floor(Math.random() * 150) + 80;
       const bottomY = gap + topHeight + 245;
-      bottom.setAttribute("y", bottomY);
-      bottom.setAttribute("height", groundY - bottomY);
       top.setAttribute("y", 245);
       top.setAttribute("height", topHeight);
+      bottom.setAttribute("y", bottomY);
+      bottom.setAttribute("height", groundY - bottomY);
       pipeScored[i - 1] = false;
     }
 
