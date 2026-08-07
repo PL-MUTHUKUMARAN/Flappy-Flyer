@@ -102,7 +102,7 @@ function start() {
 
     if (topX < -60) {
       topX = 1525;
-      const gap = 200;
+      const gap = 110;
       const topHeight = Math.floor(Math.random() * 150) + 80;
       const bottomY = gap + topHeight + 245;
       bottom.setAttribute("y", bottomY);
