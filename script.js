@@ -6,7 +6,7 @@ let BFallingGently = false;
 let rotation = 0;
 const gravity = 1;
 const groundY = 667;
-const PIPE_GAP = 110;
+const PIPE_GAP = 100;
 let pipeScored = [false, false, false, false];
 
 let bestScore = parseInt(localStorage.getItem("bestScore"), 10) || 0;
