@@ -63,6 +63,18 @@ svg#game-canvas {
   background-color: black;
   color: white;
 }
+#high-score-holder {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  z-index: 100;
+  text-shadow: 2px 2px 5px black;
+}
+
 
 @media only screen and (max-width: 720px) {
   body {
