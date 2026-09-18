@@ -8,8 +8,8 @@ const gravity = 1;
 const groundY = 667;
 const PIPE_GAP = 100;
 let pipeScored = [false, false, false, false];
+
 let bestScore = parseInt(localStorage.getItem("bestScore"), 10) || 0;
-let game = null;
 
 function start() {
   const bg1 = document.getElementById("bg-image-1");
@@ -35,7 +35,9 @@ function start() {
     if (cy + ry >= groundY) {
       cy = groundY - ry;
       updateBirdPosition(cy);
-      document.getElementById("bird").setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
+      document
+        .getElementById("bird")
+        .setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
       clearInterval(game);
       setTimeout(() => {
         scoreCard();
@@ -44,7 +46,9 @@ function start() {
     }
 
     updateBirdPosition(cy);
-    document.getElementById("bird").setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
+    document
+      .getElementById("bird")
+      .setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
     return;
   }
 
@@ -52,11 +56,12 @@ function start() {
     velocity += 1;
     rotation += 2;
     cy += velocity;
-
     if (cy >= targetY) {
       cy = targetY;
       updateBirdPosition(cy);
-      document.getElementById("bird").setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
+      document
+        .getElementById("bird")
+        .setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
       BFallingGently = false;
       clearInterval(game);
       setTimeout(() => {
@@ -66,7 +71,9 @@ function start() {
     }
 
     updateBirdPosition(cy);
-    document.getElementById("bird").setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
+    document
+      .getElementById("bird")
+      .setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
     return;
   }
 
@@ -98,6 +105,7 @@ function start() {
   for (let i = 1; i <= 4; i++) {
     const top = document.getElementById("pipe-top-" + i);
     const bottom = document.getElementById("pipe-bottom-" + i);
+
     let topX = parseInt(top.getAttribute("x"));
     topX -= 2;
 
@@ -118,7 +126,6 @@ function start() {
     const pipeW = parseInt(top.getAttribute("width"));
     const topH = parseInt(top.getAttribute("height"));
     const bottomY = parseInt(bottom.getAttribute("y"));
-
     if (
       cx + rx >= topX &&
       cx - rx <= topX + pipeW &&
@@ -131,7 +138,11 @@ function start() {
         deathAudio();
         stopWingAnimation();
         return;
-      } else if (cx + ry > topX && cx - rx <= topX + pipeW && cy - ry <= topH + 245) {
+      } else if (
+        cx + ry > topX &&
+        cx - rx <= topX + pipeW &&
+        cy - ry <= topH + 245
+      ) {
         velocity = 0;
         rotation = 100;
         BFallingGently = true;
@@ -144,11 +155,12 @@ function start() {
         velocity = 1;
         rotation = 45;
       }
-
       deathAudio();
       stopWingAnimation();
       updateBirdPosition(cy);
-      document.getElementById("bird").setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
+      document
+        .getElementById("bird")
+        .setAttribute("transform", "rotate(" + rotation + ", 100, " + cy + ")");
       clearInterval(game);
       setTimeout(() => {
         scoreCard();
@@ -160,7 +172,6 @@ function start() {
       pipeScored[i - 1] = true;
       score++;
       document.getElementById("score").textContent = score;
-
       if (score > bestScore) {
         bestScore = score;
         localStorage.setItem("bestScore", bestScore);
@@ -213,40 +224,21 @@ function scoreCard() {
   document.getElementById("Final-Best").textContent = bestScore;
 }
 
-function startCountdown() {
+function restart() {
   let countdown = 3;
-  const countdownBox = document.getElementById("restart-countdown");
-  const countdownText = document.getElementById("countdown");
-  const countdownAudio = document.getElementById("countdown-audio");
+  document.getElementById("countdown").textContent = countdown;
+  document.getElementById("countdown-audio").currentTime = 0;
+  document.getElementById("countdown-audio").play();
 
-  countdownBox.style.display = "flex";
-  countdownText.textContent = countdown;
-  countdownAudio.currentTime = 0;
-  countdownAudio.play();
-
-  const countdownInterval = setInterval(() => {
-    countdown--;
-
+  const restartInterval = setInterval(() => {
     if (countdown > 0) {
-      countdownText.textContent = countdown;
+      countdown--;
+      document.getElementById("countdown").textContent = countdown;
     } else {
-      clearInterval(countdownInterval);
-      countdownBox.style.display = "none";
-      document.addEventListener("keydown", onClick);
-      document.addEventListener("touchstart", onClick);
-      game = setInterval(start, 20);
+      clearInterval(restartInterval);
+      location.reload();
     }
   }, 1000);
-}
-
-function startGame() {
-  document.getElementById("Start-Card").style.display = "none";
-  startCountdown();
-}
-
-function buttonClick() {
-  document.getElementById("Score-Card").style.display = "none";
-  startCountdown();
 }
 
 function deathAudio() {
@@ -258,7 +250,6 @@ function deathAudio() {
 function stopWingAnimation() {
   document.removeEventListener("keydown", onClick);
   document.removeEventListener("touchstart", onClick);
-
   if (wingInterval != null) {
     clearInterval(wingInterval);
     wingInterval = null;
@@ -269,6 +260,18 @@ function stopWingAnimation() {
 
 function onClick() {
   if (BDead || BFallingGently) return;
+
   fly();
   jump();
 }
+
+function buttonClick() {
+  document.getElementById("Score-Card").style.display = "none";
+  document.getElementById("restart-countdown").style.display = "flex";
+  restart();
+}
+
+document.addEventListener("keydown", onClick);
+document.addEventListener("touchstart", onClick);
+
+const game = setInterval(start, 20);
