@@ -13,7 +13,8 @@ body {
   background-color: #f0f0f0;
   overflow: hidden;
 }
-#text{
+
+#text {
   position: absolute;
   top: 80px;
   font-size: 25px;
@@ -27,9 +28,9 @@ svg#game-canvas {
   display: block;
 }
 
+#Start-Card,
 #Score-Card,
 #restart-countdown {
-  display: none;
   justify-content: center;
   align-items: center;
   background-color: rgb(72, 240, 63);
@@ -48,6 +49,25 @@ svg#game-canvas {
   z-index: 100;
 }
 
+#Start-Card {
+  display: flex;
+}
+
+#Score-Card,
+#restart-countdown {
+  display: none;
+}
+
+#Start-Card p {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#countdown {
+  font-size: 60px;
+  font-weight: bold;
+}
+
 .button {
   padding: 10px;
   border-radius: 15px;
@@ -56,24 +76,14 @@ svg#game-canvas {
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(0, 0, 0);
   color: rgb(0, 0, 0);
-} 
+}
 
 .button:hover {
   cursor: pointer;
   background-color: black;
   color: white;
 }
-#high-score-holder {
-  position: fixed;
-  top: 15px;
-  right: 20px;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-  z-index: 100;
-  text-shadow: 2px 2px 5px black;
-}
+
 
 
 @media only screen and (max-width: 720px) {
@@ -84,9 +94,18 @@ svg#game-canvas {
   .button {
     font-size: 14px;
   }
+
   #text {
     font-size: 20px;
     top: 30px;
     right: 25px;
+  }
+
+  #Start-Card p {
+    font-size: 25px;
+  }
+
+  #countdown {
+    font-size: 50px;
   }
 }
